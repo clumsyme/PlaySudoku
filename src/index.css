@@ -1,0 +1,283 @@
+body {
+    margin: 0;
+    padding: 2em 0 0;
+    min-width: 375px;
+    overflow: auto;
+    font: 12px 'Microsoft YaHei', 'Lucida Grande', Helvetica, Arial, sans-serif;
+    background: url(media/board.jpg) repeat;
+    user-select: none
+}
+
+.logo {
+    position: absolute;
+    top: 20%;
+    left: 8%;
+    width: 20%;
+    height:9vw;
+    transform: rotate(-15deg);
+    opacity:0.4;
+}
+.main {
+    position: relative;
+    margin: 0 auto;
+    width: 50%;
+    min-width: 375px;
+    height: 36vw;
+    min-height: 270px;
+}
+/*board*/
+.board {
+    position: absolute;
+    left: 14%;
+    margin: 0 auto;
+    display: inline-block;
+    width: 72%;
+    height: 100%;
+}
+.row {
+    border-bottom: 1px dashed rgba(197,229,218,0.55);
+    margin-bottom: -1px;
+    width: 100%;
+    height: 11.11111%
+}
+.row:nth-child(3n) {
+    border-bottom: 2px solid rgba(251, 255, 254, 0.8);
+    margin-bottom: -2px
+}
+.row:nth-child(1) {
+    border-top: 2px solid rgba(251, 255, 254, 0.8);
+}
+button {
+    padding: 0
+}
+button:focus {
+  outline: none;
+}
+.square{
+    width: 11.11111%;
+    height: 100%;
+    float: left;
+    background: rgba(0, 0, 0, 0);
+    font-size: 2em;
+    color: #4285f4;
+    padding: 0;
+    border-width:0 1px 0 0;
+    border-style: dashed;
+    border-color: rgba(197,229,218,0.55);
+    cursor: pointer;
+}
+.square:nth-child(3n) {
+    border-right: 2px solid rgba(251, 255, 254, 0.8);
+}
+.square:nth-child(1) {
+    border-left: 2px solid rgba(251, 255, 254, 0.8);
+}
+
+/*choices*/
+.choices {
+    position: relative;
+    margin: 0 auto;
+    width: 36%;
+    min-width: 270px;
+    height: 4vw;
+    min-height: 30px;
+    margin-top: 4px;
+    padding: 0;
+}
+.choice{
+    width: 11.111%;
+    height: 100%;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 1.5em;
+    color: rgb(155, 204, 20);
+    border: 1px dashed rgba(251, 255, 254, 0.8);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/*level control*/
+.controls {
+    height: 2em;
+    margin: 0 0 2em;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    line-height: 2em;
+}
+.level {
+    display: inline-block;
+    padding: 0.5em 0.5em;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/*both side*/
+.left, .right {
+    position: absolute;
+    width: 14%;
+    height: 100%;
+}
+.right {
+    left: 86%;
+}
+.check, .solve, .hint, .delete {
+    position: absolute;
+    border: 0;
+    /*border: 1px dotted #FFF;*/
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    color: #cdd1d0;
+    cursor: pointer;
+}
+.check, .hint {
+    bottom: 0;
+    width: 100%;
+    height: 19.44%;
+    font-size: 1.5em;
+}
+.checktext {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    height: 6em;
+    margin: 0;
+    text-align: center;
+    word-break:break-all;
+    font-size: 2em;
+    color: #fbbc05;
+    filter: blur(12px)
+}
+.solve, .delete {
+    width: 50%;
+    height: 9.72%;
+    bottom: 18.61%;
+    background: rgba(0, 0, 0, 0.3)
+}
+.solve {
+    left: 0;
+}
+.delete {
+    right: 0;
+}
+
+/*info block*/
+.info {
+    position: absolute;
+    right: 15%;
+    top: 20%;
+    width: 9%;
+    height: 18vw
+}
+.shares, .about ,.code{
+    position: absolute;
+    width: 100%;
+    height: 33.333%
+}
+.showshare {
+    width: 33.33%;
+    height: 50%;
+    margin: 0 auto 0;
+    left: 33.33%;
+    background: url(media/share.png);
+    background-size: 100% 100%;
+    cursor: pointer
+}
+
+.showshare:hover + .sharegroup {
+    animation: fadein 0.7s;
+    display: block;
+}
+@keyframes fadein {
+    from {opacity: 0};
+    to {opacity: 100}
+}
+.sharegroup {
+    width: 100%;
+    height: 50%;
+    display: none
+}
+.sharegroup:hover {
+    width: 100%;
+    height: 50%;
+    display: block
+}
+.shareimg {
+    width: 33.33%;
+    height: 100%;
+    float: left;
+    opacity:1;
+}
+.about {
+    top: 33.33%
+}
+.showabout {
+    width: 33.33%;
+    height: 50%;
+    margin: 10px auto 0;
+    background: url(media/info.png);
+    background-size: 100% 100%;
+    cursor: pointer
+}
+.showabout:hover + .aboutme {
+    animation: fadein 0.5s;
+    display: block;
+}
+.aboutme {
+    position: fixed;
+    top: 8%;
+    left: 25%;
+    width: 46%;
+    background: #FFF;
+    padding: 2%;
+    display: none
+}
+.aboutlogo {
+    width: 15%;
+    margin: 0 auto
+}
+.code {
+    top: 85%;
+    left: 33.33%;
+    width: 33.33%;
+    height: 11.11%;
+    background: url(media/code.png);
+    background-size: 100% 100%;
+    cursor: pointer
+}
+/*for phone or some screen*/
+@media screen and (max-aspect-ratio: 5/3) {
+    .main {
+        width: 70%;
+        height:50.4vw;
+    }
+    .choices {
+        width: 50.4%;
+        height: 5.6vw;
+    }
+    .logo {
+        left: 3%
+    }
+}
+@media screen and (max-aspect-ratio: 1/1) {
+    .logo {
+        position: relative;
+        left: initial;
+        margin: 0 auto 1em;
+        width: 20%;
+        height: 9vw;
+        display: block;
+        transform: rotate(0deg);
+        opacity:0.4;
+    }
+    .info {
+        right: 5%
+    }
+    .aboutme {
+        width: 56%;
+        left: 20%
+    }
+}
