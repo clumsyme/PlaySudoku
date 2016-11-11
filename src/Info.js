@@ -70,7 +70,7 @@ class Info extends Component {
             <div className="info">
                 <Shares />
                 <About />
-                <a className="code"  target="_blank" title="查看源代码" href="URL"></a>
+                <a className="code"  target="_blank" title="查看源代码" href="https://github.com/clumsyme/PlaySudoku"></a>
             </div>
         )
     }
