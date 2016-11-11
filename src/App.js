@@ -227,8 +227,8 @@ class Game extends Component {
         var random = Math.floor(Math.random() * puzzles.length)
         var grid = puzzles[random],
             sudoku = new SudokuGenerator(grid).generate(),
-            puzzle = sudoku[0],
-            solution = sudoku[1]
+            puzzle = sudoku[0]
+        this.solution = sudoku[1]
         const origin = new Set()
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j++) {
@@ -239,7 +239,6 @@ class Game extends Component {
         }
         this.setState({
             values: puzzle,
-            solution: solution,
             level: level,
             peep: false,
             origin: origin,
@@ -354,12 +353,10 @@ class Game extends Component {
         if (!r) {
             return
         } else {
-            var values = this.state.values,
-                solution = this.solution,
+            var solution = this.solution,
                 peep = this.state.peep
             this.setState({
                 values: solution,
-                solution: values,
                 peep: !peep
             })
         }
