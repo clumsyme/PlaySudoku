@@ -334,9 +334,24 @@ class Game extends Component {
             var solutionValue = solution[chosen[0]][chosen[1]]
             values[chosen[0]][chosen[1]] = solutionValue
             helps -= 1
+            var conflict = new Set()
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    if (!values[i][j]) {
+                        continue
+                    }else {
+                        var thisvalue = values[i][j],
+                        possible = this.checkPossible(i, j)
+                        if (!possible.has(thisvalue)) {
+                            conflict.add(i + '.' + j)
+                        }   
+                    }
+                }
+            }
             this.setState({
                 values: values,
-                helps: helps
+                helps: helps,
+                conflict: conflict
             })
         }
     }
@@ -357,7 +372,10 @@ class Game extends Component {
                 peep = this.state.peep
             this.setState({
                 values: solution,
-                peep: !peep
+                peep: !peep,
+                conflict: new Set(),
+                highlight: new Set(),
+                filter: new Set(),
             })
         }
 
@@ -418,8 +436,8 @@ class Game extends Component {
                 {
                     values: values,
                     highlight: new Set(),
-                    conflict: conflict
-                    // chosen: null
+                    conflict: conflict,
+                    chosen: null
                 }
             )
             if (!this.state.peep && values.toString() === this.solution.toString()) {
