@@ -137,7 +137,17 @@ button:focus {
     bottom: 0;
     width: 100%;
     height: 19.44%;
-    font-size: 1.5em;
+    font-size: 2em;
+}
+.check::before {
+    content: '\1f4a1';
+    opacity: 0.7;
+    font-size: 2em
+}
+.hint::before {
+    content: '\1f441';
+    opacity: 0.7;
+    font-size: 2em;
 }
 .checktext {
     position: absolute;
@@ -160,17 +170,25 @@ button:focus {
 .solve {
     left: 0;
 }
+.solve::before {
+    content: '\2691';
+    opacity: 0.7;
+    font-size: 1.5em;
+}
 .delete {
     right: 0;
+}
+.delete::before {
+    content: '\2702';
+    opacity: 0.7;
+    font-size: 1.5em
 }
 
 /*info block*/
 .info {
     position: absolute;
-    right: 15%;
-    top: 20%;
-    width: 9%;
-    height: 18vw
+    width: 100%;
+    height: 38.89%
 }
 .shares, .about ,.code{
     position: absolute;
@@ -229,8 +247,8 @@ button:focus {
 .aboutme {
     position: fixed;
     top: 8%;
-    left: 25%;
-    width: 46%;
+    left: 32%;
+    width: 32%;
     background: #FFF;
     padding: 2%;
     display: none
@@ -273,11 +291,27 @@ button:focus {
         transform: rotate(0deg);
         opacity:0.4;
     }
-    .info {
-        right: 5%
-    }
     .aboutme {
-        width: 56%;
-        left: 20%
+        width: 46%;
+        left: 25%
+    }
+}
+@media screen and (max-width: 1300px) {
+    .check::before {
+        font-size: 1.5em
+    }
+    .hint::before {
+        font-size: 1.5em;
+    }
+}
+@media screen and (max-width: 680px) {
+    .check::before {
+        font-size: 1em
+    }
+    .hint::before {
+        font-size: 1em;
+    }
+    .checktext {
+        font-size: 1em
     }
 }

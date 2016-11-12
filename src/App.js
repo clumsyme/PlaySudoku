@@ -474,11 +474,11 @@ class Game extends Component {
                 </ul>
                 <div className="main">
                     <div className="left">
-                        <Square className="delete" value="X" onClick={() => this.handleNumsClick("X")} />
+                        <button className="delete" value="X" onClick={() => this.handleNumsClick("X")} />
                         <div style={checkStyle} className="checktext">
                             <p value={this.state.possible}>{this.state.possible}</p>
                         </div>
-                        <Square className="check" value="?" onClick={() => this.check()} />
+                        <button className="check" value="?" onClick={() => this.check()} />
                     </div>
                     <Board values={this.state.values}
                         origin={this.state.origin}
@@ -489,14 +489,14 @@ class Game extends Component {
                         highlight={this.state.highlight}
                         onClick={(i, j) => this.handleClick(i, j)} />
                     <div className="right">
-                        <Square className="solve" style={peepStyle} value="O" onClick={() => this.solve()} />
-                        <Square className="hint" style={hintStyle} value={this.state.helps} onClick={() => this.help()} />
+                        <button className="solve" style={peepStyle} value="O" onClick={() => this.solve()} />
+                        <button className="hint" style={hintStyle} value={this.state.helps} onClick={() => this.help()} />
+                        <Info />
                     </div>
                 </div>
                 <ul className="choices">
                     {choices}
                 </ul>
-                <Info />
             </div>
         );
     }
