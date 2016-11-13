@@ -7,7 +7,7 @@ import Info from './Info'
 class Square extends Component {
     render() {
         return (
-            <button style={this.props.style} className={this.props.className} onClick={() => this.props.onClick()}>
+            <button style={this.props.style} className={this.props.className} onClick={this.props.onClick}>
                 {this.props.value}
             </button>
         );
@@ -105,7 +105,7 @@ class Board extends Component {
 class Control extends Component {
     render() {
         return (
-            <li style={this.props.style} className={this.props.className} onClick={() => this.props.onClick()}>
+            <li style={this.props.style} className={this.props.className} onClick={this.props.onClick}>
                 {this.props.value}
             </li>
         )
@@ -114,6 +114,9 @@ class Control extends Component {
 class Game extends Component {
     constructor(props) {
         super(props)
+        this.check = this.check.bind(this)
+        this.solve = this.solve.bind(this)
+        this.help = this.help.bind(this)
         var random = Math.floor(Math.random() * 8),
             grid = sudokus.easy[random],
             sudoku = new SudokuGenerator(grid).generate(),
@@ -478,7 +481,7 @@ class Game extends Component {
                         <div style={checkStyle} className="checktext">
                             <p value={this.state.possible}>{this.state.possible}</p>
                         </div>
-                        <button className="check" value="?" onClick={() => this.check()} />
+                        <button className="check" value="?" onClick={this.check} />
                     </div>
                     <Board values={this.state.values}
                         origin={this.state.origin}
@@ -489,8 +492,8 @@ class Game extends Component {
                         highlight={this.state.highlight}
                         onClick={(i, j) => this.handleClick(i, j)} />
                     <div className="right">
-                        <button className="solve" style={peepStyle} value="O" onClick={() => this.solve()} />
-                        <button className="hint" style={hintStyle} value={this.state.helps} onClick={() => this.help()} />
+                        <button className="solve" style={peepStyle} value="O" onClick={this.solve} />
+                        <button className="hint" style={hintStyle} value={this.state.helps} onClick={this.help} />
                         <Info />
                     </div>
                 </div>
