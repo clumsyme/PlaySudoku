@@ -7,7 +7,7 @@ import Info from './Info'
 class Square extends Component {
     render() {
         return (
-            <button style={this.props.style} className={this.props.className} onClick={this.props.onClick}>
+            <button style={this.props.style} className={this.props.className} onClick={() => this.props.onClick()}>
                 {this.props.value}
             </button>
         );
@@ -105,7 +105,7 @@ class Board extends Component {
 class Control extends Component {
     render() {
         return (
-            <li style={this.props.style} className={this.props.className} onClick={this.props.onClick}>
+            <li style={this.props.style} className={this.props.className} onClick={() => this.props.onClick()}>
                 {this.props.value}
             </li>
         )
@@ -129,7 +129,8 @@ class Game extends Component {
         }
         this.styles = {
             highlight: {
-                backgroundColor: 'rgba(52, 168, 83, 0.2)'
+                backgroundColor: 'rgba(52, 168, 83, 0.2)',
+                animation: 'highlight 2s'
             },
             filter: {
                 boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.8)',
@@ -167,7 +168,6 @@ class Game extends Component {
             },
             originConflict: {
                 backgroundColor: 'rgba(255, 0, 0, 0.3)',
-                fontWeight: 800,
                 color: '#ea4335'
             },
             chosenConflict: {
@@ -478,7 +478,7 @@ class Game extends Component {
                         <div style={checkStyle} className="checktext">
                             <p value={this.state.possible}>{this.state.possible}</p>
                         </div>
-                        <button className="check" value="?" onClick={this.check} />
+                        <button className="check" value="?" onClick={() => this.check()} />
                     </div>
                     <Board values={this.state.values}
                         origin={this.state.origin}
@@ -489,8 +489,8 @@ class Game extends Component {
                         highlight={this.state.highlight}
                         onClick={(i, j) => this.handleClick(i, j)} />
                     <div className="right">
-                        <button className="solve" style={peepStyle} value="O" onClick={this.solve} />
-                        <button className="hint" style={hintStyle} value={this.state.helps} onClick={this.help} />
+                        <button className="solve" style={peepStyle} value="O" onClick={() => this.solve()} />
+                        <button className="hint" style={hintStyle} value={this.state.helps} onClick={() => this.help()} />
                         <Info />
                     </div>
                 </div>
