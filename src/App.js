@@ -4,15 +4,10 @@ import SudokuGenerator from './SudokuGenerator'
 import logo from './media/logo.png'
 import Info from './Info'
 
-class Square extends Component {
-    render() {
-        return (
-            <button style={this.props.style} className={this.props.className} onClick={this.props.onClick}>
-                {this.props.value}
-            </button>
-        );
-    }
-}
+let Square = props => 
+  <button style={props.style} className={props.className} onClick={props.onClick}>
+    {props.value}
+  </button>
 
 class Row extends Component {
     renderSquare(j) {
