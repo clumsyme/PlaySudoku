@@ -315,3 +315,19 @@ button:focus {
         font-size: 1em
     }
 }
+#bt1::after {
+    content: '\1F4A1';
+    font-size: 2em
+}
+#bt2::after {
+    content: '\1F441';
+    font-size: 2em
+}
+#bt3::after {
+    content: '\2702';
+    font-size: 2em
+}
+#bt4::after {
+    content: '\2691';
+    font-size: 2em
+}

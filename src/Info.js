@@ -52,8 +52,8 @@ class About extends Component {
                     <ol className="playhelp">
                         <li>点击空白块，再点击下方数字进行填写。</li>
                         <li>直接点击下方数字，查看该数字的分布情况。</li>
-                        <li>点击左方按钮显示选中方块的可能值。点击右方按钮获得选中方块的确定值（共三次机会）。</li>
-                        <li>点击X按钮删除输入，点击O按钮查看答案结束解谜。</li>
+                        <li><span id="bt1">点击</span>按钮显示选中方块的可能值。<span id="bt2">点击</span>按钮获得选中方块的确定值（共三次机会）。</li>
+                        <li><span id="bt3">点击</span>按钮删除输入，<span id="bt4">点击</span>按钮查看答案结束解谜。</li>
                     </ol>
                     <h3>如果你有任何问题</h3>
                     <p>请给我发邮件: liyancsu@gmail.com</p>
