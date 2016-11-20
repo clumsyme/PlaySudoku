@@ -97,15 +97,11 @@ class Board extends Component {
     }
 }
 
-class Control extends Component {
-    render() {
-        return (
-            <li style={this.props.style} className={this.props.className} onClick={this.props.onClick}>
-                {this.props.value}
-            </li>
-        )
-    }
-}
+let Control = props => 
+  <li style={props.style} className={props.className} onClick={props.onClick}>
+    {props.value}
+  </li>
+
 class Game extends Component {
     constructor(props) {
         super(props)
