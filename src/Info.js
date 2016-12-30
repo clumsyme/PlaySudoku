@@ -56,9 +56,9 @@ class About extends Component {
                         <li><span id="bt3">点击</span>按钮删除输入，<span id="bt4">点击</span>按钮查看答案结束解谜。</li>
                     </ol>
                     <h3>如果你有任何问题</h3>
-                    <p>请给我发邮件: liyancsu@gmail.com</p>
+                    <p>请给我发邮件: lidoyan@gmail.com</p>
                     <hr/>
-                    <p>PlaySudoku Designed and Developed by @LiYan。</p>
+                    <p>PlaySudoku Designed and Developed by <a href='http://imliyan.com'>@LiYan</a>。</p>
                 </div>
             </div>
         )
