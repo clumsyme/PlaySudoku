@@ -1,8 +1,8 @@
 class SudokuGenerator {
     constructor(grid) {
         this.grid = grid
-        this.nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-        this.chars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+        this.nums = [...'123456789']
+        this.chars = [...'ABCDEFGHI']
     }
     shuffleArray(array) {
         for (let i = array.length; i; i--) {
