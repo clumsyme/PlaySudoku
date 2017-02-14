@@ -6,6 +6,6 @@ You can play the game at [PlaySudoku](http://playsudoku.me).
 git clone git://github.com/clumsyme/PlaySudoku
 cd PlaySudoku
 npm install --save react react-dom
-npm install react-scripts
+npm install --save-dev react-scripts
 npm start
 ```

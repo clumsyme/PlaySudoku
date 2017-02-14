@@ -4,103 +4,39 @@ import SudokuGenerator from './SudokuGenerator'
 import logo from './media/logo.png'
 import Info from './Info'
 
-let Square = props => 
-  <button style={props.style} className={props.className} onClick={props.onClick}>
-    {props.value}
-  </button>
-
-class Row extends Component {
-    renderSquare(j) {
-        var squareStyle,
-            i = this.props.row,
-            cord = i + '.' + j,
-            chosen = this.props.chosen
-        if (this.props.origin.has(cord)) {
-            if (this.props.highlight.has(cord)) {
-                squareStyle = this.props.styles.originHighlight
-            } else if (this.props.filter.has(cord)) {
-                squareStyle = this.props.styles.originFilter
-            } else {
-                squareStyle = this.props.styles.origin
-            }
-            if (this.props.conflict.has(cord)) {
-                squareStyle = this.props.styles.originConflict
-            }
-        } else {
-            if (this.props.highlight.has(cord)) {
-                squareStyle = this.props.styles.highlight
-            }else if (this.props.filter.has(cord)) {
-                squareStyle = this.props.styles.filter
-            }
-            if (this.props.conflict.has(cord)) {
-                squareStyle = this.props.styles.conflict
-            }
-        }
-        if (chosen && (cord === chosen[0] + '.' + chosen[1])) {
-            if (this.props.conflict.has(cord)) {
-                squareStyle = this.props.styles.chosenConflict
-            } else {
-                squareStyle = this.props.styles.chosen
-            }
-        }
-
-        return <Square style={squareStyle}
-            className='square'
-            row={this.props.row}
-            col={j}
-            value={this.props.values[j]}
-            onClick={() => this.props.onClick(j)} />;
-    }
-    render() {
-        return (
-            <div style={this.props.style} className='row'>
-                {this.renderSquare(0)}
-                {this.renderSquare(1)}
-                {this.renderSquare(2)}
-                {this.renderSquare(3)}
-                {this.renderSquare(4)}
-                {this.renderSquare(5)}
-                {this.renderSquare(6)}
-                {this.renderSquare(7)}
-                {this.renderSquare(8)}
-            </div>
-        );
-    }
-}
-
 class Board extends Component {
-    renderRow(i) {
-        return <Row values={this.props.values[i]}
-            origin={this.props.origin}
-            row={i}
-            styles={this.props.styles}
-            filter={this.props.filter}
-            highlight={this.props.highlight}
-            conflict={this.props.conflict}
-            chosen={this.props.chosen}
-            onClick={(j) => this.props.onClick(i, j)} />;
+    getsquares(rowindex) {
+        var squares = [...'012345678'].map((i, squareindex) => {
+            var cord = rowindex + '' + squareindex
+              , className = 'square'
+            if (this.props.origin.has(cord)) { className += ' origin' }
+            if (this.props.highlight.has(cord)) { className += ' highlight' }
+            if (this.props.filter.has(cord)) { className += ' filter' }
+            if (this.props.conflict.has(cord)) { className += ' conflict' }
+            if (this.props.chosen === cord) { className += ' chosen' }
+            return (
+                <button key={squareindex} className={className} onClick={() => this.props.onClick(rowindex, squareindex)}>
+                    {this.props.values[rowindex][squareindex]}
+                </button>
+            )
+        })
+        return (
+            <div key={rowindex} className={'row ' + rowindex}>
+                {squares}
+            </div>
+        )
     }
     render() {
+        var rows = [...'012345678'].map((i, rowindex) => {
+            return this.getsquares(rowindex)
+        })
         return (
             <div className='board'>
-                {this.renderRow(0)}
-                {this.renderRow(1)}
-                {this.renderRow(2)}
-                {this.renderRow(3)}
-                {this.renderRow(4)}
-                {this.renderRow(5)}
-                {this.renderRow(6)}
-                {this.renderRow(7)}
-                {this.renderRow(8)}
+                {rows}
             </div>
-        );
+        )
     }
 }
-
-let Control = props => 
-  <li style={props.style} className={props.className} onClick={props.onClick}>
-    {props.value}
-  </li>
 
 class Game extends Component {
     constructor(props) {
@@ -108,97 +44,10 @@ class Game extends Component {
         this.check = this.check.bind(this)
         this.solve = this.solve.bind(this)
         this.help = this.help.bind(this)
-        var random = Math.floor(Math.random() * 8),
-            grid = sudokus.easy[random],
-            sudoku = new SudokuGenerator(grid).generate(),
-            puzzle = sudoku[0]
-        this.solution = sudoku[1]
-        const origin = new Set()
-        for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 9; j++) {
-                if (puzzle[i][j]) {
-                    origin.add(i + '.' + j)
-                }
-            }
-        }
-        this.styles = {
-            highlight: {
-                backgroundColor: 'rgba(52, 168, 83, 0.2)',
-                animation: 'highlight 2s'
-            },
-            filter: {
-                boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.8)',
-                backgroundColor: 'rgba(255, 13, 126, 0.2)',
-                color: '#4285f4',
-            },
-            chosen: {
-                backgroundColor: 'rgba(155, 204, 20, 0.3)',
-            },
-            origin: {
-                backgroundColor: 'rgba(200, 200, 200, 0.1)',
-                color: '#ea4335'
-            },
-            originHighlight: {
-                backgroundColor: 'rgba(52, 168, 83, 0.2)',
-                color: '#ea4335'
-            },
-            originFilter: {
-                backgroundColor: 'rgba(255, 13, 126, 0.2)',
-                color: '#ea4335'
-            },
-            control: {
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                color: '#ea4335'
-            },
-            peep: {
-                backgroundColor: 'rgba(251, 188, 5, 0.2)'
-            },
-            check: {
-                filter: 'blur(0)'
-            },
-            conflict: {
-                backgroundColor: 'rgba(255, 0, 0, 0.1)',
-                fontWeight: 800
-            },
-            originConflict: {
-                backgroundColor: 'rgba(255, 0, 0, 0.3)',
-                color: '#ea4335'
-            },
-            chosenConflict: {
-                backgroundColor: 'rgba(255, 0, 0, 0.6)',
-                fontWeight: 800
-            },
-            hint: [
-                {
-                    transition: 'background-color 0.5s',
-                    backgroundColor: 'rgba(52, 168, 83, 0.2)'
-                },
-                {
-                    transition: 'background-color 0.5s',
-                    backgroundColor: 'rgba(251, 188, 5, 0.2)'
-                },
-                {
-                    transition: 'background-color 0.5s',
-                    backgroundColor: 'rgba(255, 13, 126, 0.2)'
-                }
-            ]
-        }
-        this.state = {
-            values: puzzle,
-            level: '简单',
-            origin: origin,
-            peep: false,
-            possible: null,
-            chosen: null,
-            filter: new Set(),
-            highlight: new Set(),
-            conflict: new Set(),
-            check: false,
-            helps: 3,
-        }
+        this.handleClick = this.handleClick.bind(this)
     }
     generate(level) {
-        let puzzles
+        var puzzles
         switch (level) {
             case '非常简单':
                 puzzles = sudokus.veryeasy
@@ -218,16 +67,15 @@ class Game extends Component {
             default:
                 puzzles = sudokus.easy
         }
-        var random = Math.floor(Math.random() * puzzles.length)
-        var grid = puzzles[random],
-            sudoku = new SudokuGenerator(grid).generate(),
-            puzzle = sudoku[0]
+        var grid = puzzles[Math.floor(Math.random() * puzzles.length)]
+            , sudoku = new SudokuGenerator(grid).generate()
+            , puzzle = sudoku[0]
         this.solution = sudoku[1]
         const origin = new Set()
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j++) {
                 if (puzzle[i][j]) {
-                    origin.add(i + '.' + j)
+                    origin.add(i + '' + j)
                 }
             }
         }
@@ -245,17 +93,20 @@ class Game extends Component {
             conflict: new Set()
         })
     }
+    componentWillMount() {
+        this.generate('简单')
+    }
     checkPossible(i, j) {
         var values = this.state.values
-        var allPossible = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9'])
+        var allPossible = new Set([...'123456789'])
         for (let k = 0; k <= 8; k++) {
-            if (k === j) {continue}
+            if (k === j) { continue }
             if (allPossible.has(values[i][k])) {
                 allPossible.delete(values[i][k])
             }
         }
         for (let k = 0; k <= 8; k++) {
-            if (k === i) {continue}
+            if (k === i) { continue }
             if (allPossible.has(values[k][j])) {
                 allPossible.delete(values[k][j])
             }
@@ -264,9 +115,9 @@ class Game extends Component {
             bj = Math.floor(j / 3) * 3
         for (let m = bi; m < bi + 3; m++) {
             for (let n = bj; n < bj + 3; n++) {
-                  if (m === i && n === j) {
-                      continue
-                  }
+                if (m === i && n === j) {
+                    continue
+                }
                 if (allPossible.has(values[m][n])) {
                     allPossible.delete(values[m][n])
                 }
@@ -280,7 +131,7 @@ class Game extends Component {
         for (let m = 0; m < 9; m++) {
             for (let n = 0; n < 9; n++) {
                 if (values[m][n] === value) {
-                    filter.add(m + '.' + n)
+                    filter.add(m + '' + n)
                 }
             }
         }
@@ -295,12 +146,12 @@ class Game extends Component {
         var highlight = new Set()
         for (let k = 0; k < 9; k++) {
             if (values[i][k]) {
-                highlight.add(i + '.' + k)
+                highlight.add(i + '' + k)
             }
         }
         for (let k = 0; k < 9; k++) {
             if (values[k][j]) {
-                highlight.add(k + '.' + j)
+                highlight.add(k + '' + j)
             }
         }
         var line = Math.floor(i / 3) * 3,
@@ -308,7 +159,7 @@ class Game extends Component {
         for (let ln = line; ln < line + 3; ln++) {
             for (let r = row; r < row + 3; r++) {
                 if (values[ln][r]) {
-                    highlight.add(ln + '.' + r)
+                    highlight.add(ln + '' + r)
                 }
             }
         }
@@ -322,7 +173,7 @@ class Game extends Component {
             values = this.state.values.slice(),
             chosen = this.state.chosen,
             helps = this.state.helps
-        if (!chosen.length || this.state.origin.has(chosen[0] + '.' + chosen[1]) || !this.state.helps) {
+        if (!chosen || this.state.origin.has(chosen[0] + '' + chosen[1]) || !this.state.helps) {
             return
         } else {
             var solutionValue = solution[chosen[0]][chosen[1]]
@@ -333,12 +184,12 @@ class Game extends Component {
                 for (let j = 0; j < 9; j++) {
                     if (!values[i][j]) {
                         continue
-                    }else {
+                    } else {
                         var thisvalue = values[i][j],
-                        possible = this.checkPossible(i, j)
+                            possible = this.checkPossible(i, j)
                         if (!possible.has(thisvalue)) {
-                            conflict.add(i + '.' + j)
-                        }   
+                            conflict.add(i + '' + j)
+                        }
                     }
                 }
             }
@@ -362,11 +213,9 @@ class Game extends Component {
         if (!r) {
             return
         } else {
-            var solution = this.solution,
-                peep = this.state.peep
             this.setState({
-                values: solution,
-                peep: !peep,
+                values: this.solution,
+                peep: true,
                 conflict: new Set(),
                 highlight: new Set(),
                 filter: new Set(),
@@ -377,13 +226,12 @@ class Game extends Component {
     handleClick(i, j) {
         var values = this.state.values.slice()
         var thisvalue = values[i].slice()
-        let chosen
-        if (this.state.origin.has(i + '.' + j)) {
+        if (this.state.origin.has(i + '' + j)) {
             this.filter(thisvalue[j])
             return
         } else {
             this.highlight(i, j)
-            chosen = [i, j]
+            var chosen = i + '' + j
             var possible = Array.from(this.checkPossible(i, j)).toString()
             this.setState({
                 chosen: chosen,
@@ -394,7 +242,7 @@ class Game extends Component {
         }
     }
     handleNumsClick(i) {
-        if (this.state.peep) {return}
+        if (this.state.peep) { return }
         var chosen = this.state.chosen
         if (!chosen) {
             this.filter('' + i)
@@ -417,12 +265,12 @@ class Game extends Component {
                 for (let j = 0; j < 9; j++) {
                     if (!values[i][j]) {
                         continue
-                    }else {
+                    } else {
                         var thisvalue = values[i][j],
-                        possible = this.checkPossible(i, j)
+                            possible = this.checkPossible(i, j)
                         if (!possible.has(thisvalue)) {
-                            conflict.add(i + '.' + j)
-                        }   
+                            conflict.add(i + '' + j)
+                        }
                     }
                 }
             }
@@ -440,57 +288,49 @@ class Game extends Component {
                     peep: true
                 })
             }
-            
         }
     }
-    renderControl(value) {
-        var controlStyle = value === this.state.level?this.styles.control:undefined
-        return <Control style={controlStyle} className="level" value={value} onClick={() => this.generate(value)} />
-    }
     render() {
-        var peepStyle = this.state.peep?this.styles.peep:undefined
-        var checkStyle = this.state.check?this.styles.check:undefined
-        var hintStyle = this.styles.hint[2 - this.state.helps]
-        var choices = ['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(
-            (i) => {
-                return <Square key={i} className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
-            }
-        )
+        var peep = this.state.peep ? ' peep' : ''
+        var checking = this.state.check ? ' checking' : ''
+        var hinttime = [' zero', ' one', ' two', ' three'][this.state.helps]
+        var choices = [...'123456789'].map((i) => {
+            return <button key={i} className="choice" value={i} onClick={() => this.handleNumsClick(i)}>{i}</button>
+        })
+        var controls = ['非常简单', '简单', '中等', '困难', '非常困难'].map((level, index) => {
+            var active = level === this.state.level ? ' active' : ''
+            return <li key={index} className={"level" + active} onClick={() => this.generate(level)}>{level}</li>
+        })
         return (
             <div className="game">
                 <img className="logo" alt="PlaySudoku" src={logo} />
                 <ul className="controls">
-                    {this.renderControl("非常简单")}
-                    {this.renderControl("简单")}
-                    {this.renderControl("中等")}
-                    {this.renderControl("困难")}
-                    {this.renderControl("非常困难")}
+                    {controls}
                 </ul>
                 <div className="main">
                     <div className="left">
-                        <button className="delete" value="X" onClick={() => this.handleNumsClick("X")} />
-                        <div style={checkStyle} className="checktext">
+                        <button className="delete" onClick={() => this.handleNumsClick("X")} />
+                        <div className={"checktext" + checking}>
                             <p value={this.state.possible}>{this.state.possible}</p>
                         </div>
-                        <button className="check" value="?" onClick={this.check} />
+                        <button className="check" onClick={this.check} />
                     </div>
                     <Board values={this.state.values}
                         origin={this.state.origin}
                         filter={this.state.filter}
                         conflict={this.state.conflict}
-                        styles={this.styles}
                         chosen={this.state.chosen}
                         highlight={this.state.highlight}
-                        onClick={(i, j) => this.handleClick(i, j)} />
+                        onClick={this.handleClick} />
                     <div className="right">
-                        <button className="solve" style={peepStyle} value="O" onClick={this.solve} />
-                        <button className="hint" style={hintStyle} value={this.state.helps} onClick={this.help} />
-                        <Info />
+                        <button className={"solve" + peep} onClick={this.solve} />
+                        <button className={"hint" + hinttime} onClick={this.help} />
                     </div>
                 </div>
                 <ul className="choices">
                     {choices}
                 </ul>
+                <Info />
             </div>
         );
     }

@@ -1,45 +1,11 @@
 import React, { Component } from 'react'
-import weibo from './media/weibo.png'
-import douban from './media/douban.png'
-import qzone from './media/qzone.png'
 import logo from './media/logo.png'
 
-class Share extends Component {
-    render() {
-        return (
-            <a className="share" target="_blank"  title={"分享到" + this.props.siteName} href={this.props.siteUrl}>
-                <img className="shareimg" alt={"分享到" + this.props.siteName} src={this.props.siteImg} width="20" height="20" />
-            </a>
-        )
-    }
-}
-class Shares extends Component {
-    render() {
-        return(
-            <div className="shares">
-                <div className="showshare"></div>
-                <div className="sharegroup">
-                    <Share siteName="新浪微博"
-                           siteUrl="http://v.t.sina.com.cn/share/share.php?title=PlaySudoku，无尽的数独谜题，从简单到超难。&url=http://playsudoku.me&source=bookmark"
-                           siteImg={weibo}
-                    />
-                    <Share siteName="豆瓣"
-                           siteUrl="http://www.douban.com/recommend/?title=PlaySudoku，无尽的数独谜题，从简单到超难。&url=http://playsudoku.me&source=bookmark"
-                           siteImg={douban}
-                    />
-                    <Share siteName="QQ空间"
-                           siteUrl="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?title=PlaySudoku，无尽的数独谜题，从简单到超难。&url=http://playsudoku.me"
-                           siteImg={qzone}
-                    />
-                </div>
-            </div>
-        )
-    }
-}
-class About extends Component {
+class Info extends Component {
     render() {
         return(
             <div className="about">
+                <a className='code' target="_blank" title="查看源代码" href="https://github.com/clumsyme/PlaySudoku"></a>
                 <div className="showabout"></div>
                 <div className="aboutme">
                     <img className="aboutlogo" src={logo} alt="logo" />
@@ -60,17 +26,6 @@ class About extends Component {
                     <hr/>
                     <p>PlaySudoku Designed and Developed by <a href='http://imliyan.com'>@LiYan</a>。</p>
                 </div>
-            </div>
-        )
-    }
-}
-class Info extends Component {
-    render() {
-        return (
-            <div className="info">
-                <Shares />
-                <About />
-                <a className="code"  target="_blank" title="查看源代码" href="https://github.com/clumsyme/PlaySudoku"></a>
             </div>
         )
     }
