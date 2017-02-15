@@ -12,3 +12,7 @@ npm install --save react react-dom
 npm install --save-dev react-scripts
 npm start
 ```
+
+### Take a look
+
+![demo](demo.png)
